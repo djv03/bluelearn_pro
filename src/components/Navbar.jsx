@@ -2,9 +2,10 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import mainlogo from './mainlogo.webp'
-function Navbar() {
+function Navbar({ logout, user }) {
+    console.log(user)
     return (
-        <div className='main flex justify-around mt-8'>
+        <div className='main flex justify-around mt-8 '>
             <div className="logo-section bg-gray-900 px-6 py-2 rounded-3xl">
                 <Link href={'/'}>
                     <p className='text-3xl'> <span className='text-blue-600 '>blue</span>learn</p>
@@ -13,23 +14,38 @@ function Navbar() {
             </div>
             <div className="flex justify-center items-center  navlinks-section bg-gray-900 h-12   rounded-3xl">
                 <Link href={'/'}>
-                <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Hire talent</li>
+                    <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Hire talent</li>
                 </Link>
                 <Link href={'/'}>
-                <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Find work</li>
+                    <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Find work</li>
                 </Link>
                 <Link href={'/'}>
-                <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Community</li>
+                    <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Community</li>
                 </Link>
                 <Link href={'/'}>
-                <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Events</li>
+                    <li className='  font-bold list-none px-4 transition  hover:text-indigo-500 duration-200 '>Events</li>
                 </Link>
 
             </div>
-            <div className="nav-end">
-                <button className='rounded-3xl bg-blue-500 px-4 py-3 mx-3 font-bold'>Download the App</button>
-                <button className='rounded-lg bg-slate-700 px-6 py-3 mx-3 font-bold  transition  hover:text-indigo-500 duration-200 '>Login</button>
-                <button className='rounded-lg bg-slate-700 px-6 py-3 mx-3 font-bold  transition  hover:text-indigo-500 duration-200 '>Sign up</button>
+            <div className="nav-end ">
+                <Link href={'/'}>
+                    <button className='rounded-3xl bg-blue-500 px-4 py-3 mx-3 font-bold'>Download the App</button>
+                </Link>
+                {user.value && <button className='rounded  m-4 p-2 w-24 h-10 ease-in duration-100 font-bold cursor-default '>welcome {user.student_name} </button>
+                }
+                {user.value && <Link href={'/'}>
+                    <button onClick={logout} className='rounded-lg bg-slate-700 px-6 py-3 mx-3 font-bold  transition  hover:text-indigo-500 duration-200 '>logout </button>
+                </Link>}
+                {!user.value &&
+                    <Link href={'/login'}>
+                        <button className='rounded bg-slate-400 text-emerald-300  m-4 p-2 w-24 h-10 ease-in duration-100 font-bold hover:bg-slate-600 '>login </button>
+                    </Link>
+                }
+                {!user.value &&
+                    <Link href={'/signup'}>
+                        <button className='rounded-lg bg-slate-700 px-6 py-3 mx-3 font-bold  transition  hover:text-indigo-500 duration-200 '>Sign up</button>
+                    </Link>
+                }
             </div>
         </div>
     )
