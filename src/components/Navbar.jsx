@@ -1,11 +1,11 @@
-import React from 'react'
-import Image from 'next/image'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import mainlogo from './mainlogo.webp'
 function Navbar({ logout, user }) {
+
+   
     console.log(user)
     return (
-        <div className='main flex justify-around mt-8 '>
+        <div className='mainf md:flex md:justify-around md:mt-8  '>
             <div className="logo-section bg-gray-900 px-6 py-2 rounded-3xl">
                 <Link href={'/'}>
                     <p className='text-3xl'> <span className='text-blue-600 '>blue</span>learn</p>

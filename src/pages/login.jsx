@@ -4,11 +4,21 @@ import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link';   
+import Loader from './loader.gif'
 
 function signup() {
    const router= useRouter()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading,setLoading]=useState(false)
+
+    const Loader = () => {
+        return (
+          <div className="loader">
+            <img src= './loader.gif' alt="Loading..." className="loader-image" />
+          </div>
+        );
+      };
 
     useEffect(()=>{
         if (localStorage.getItem('token')) {
@@ -17,6 +27,7 @@ function signup() {
     },[])
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault();
         const data = {  email, password }
         const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
@@ -33,6 +44,7 @@ function signup() {
  
         setEmail('')
         setPassword('')
+        setLoading(false)
         if (response.sucess) {
             localStorage.setItem('token',response.token)
             toast.success('logged In sucessfully!', {
@@ -100,7 +112,7 @@ function signup() {
                                 <p className='text-white'>new here? create your account <Link href={'/signup'} className='text-blue-300 font-bold'>here</Link></p>
                             </div>
 
-                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+                            <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login <span> {loading && <Loader/>}</span> </button>
                                 <p className='text-white mt-4'>forget password <Link href={'/forgetpass'} className='text-blue-300 font-bold'>click here</Link></p>
 
                         </form>
