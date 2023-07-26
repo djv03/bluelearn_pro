@@ -37,16 +37,18 @@ function signup() {
             },
             body: JSON.stringify(data)
         });
-    console.log(email,password);
+    // console.log(email,password);
         
-    console.log(res.status);
+    // console.log(res.status);
         let response = await res.json();
+        // console.log(response)
  
         setEmail('')
         setPassword('')
         setLoading(false)
         if (response.sucess) {
             localStorage.setItem('token',response.token)
+            localStorage.setItem('student_name',response.student_name)
             toast.success('logged In sucessfully!', {
                 position: "top-left",
                 autoClose: 800,

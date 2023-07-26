@@ -16,12 +16,14 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   useEffect(()=>{
     const token = localStorage.getItem('token');
+    const student_name = localStorage.getItem('student_name');
     if (token) {
-      setUser({ value: token });
+      setUser({ value: student_name });
       setKey(Math.random())
     }
   },[router.query])
   const logout = async() => {
+    localStorage.removeItem('student_name')
     localStorage.removeItem('token')
     setUser({ value: null })
     setKey(Math.random())
